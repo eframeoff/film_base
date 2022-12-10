@@ -1,11 +1,9 @@
 import React from "react";
-
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
-const baseUrl = "http://localhost:3001";
+import { API } from "../utils/constants";
 
-class EditComponent extends React.Component {
+class Edit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -18,34 +16,49 @@ class EditComponent extends React.Component {
   }
 
   componentDidMount() {
+    console.log(this.props);
     let userId = this.props.match.params.id;
-    const url = baseUrl + "/films/get/" + userId;
-    console.log(url);
+    const url = API.baseUrl + API.getByIdFilms + userId;
 
     axios
       .get(url)
       .then((res) => {
-        if (res.data.success) {
-          const data = res.data.data[0];
-          this.setState({
-            dataEmployee: data,
-            Fname: data.name,
-            Fgenre: data.genre,
-            Frate: data.rate,
-            Fmy_rate: data.my_rate,
-          });
-        } else {
-          alert("Error web service");
-        }
+        const data = res.data.data[0];
+        this.setState({
+          dataEmployee: data,
+          Fname: data.name,
+          Fgenre: data.genre,
+          Frate: data.rate,
+          Fmy_rate: data.my_rate,
+        });
       })
       .catch((error) => {
-        alert("Error server " + error);
+        alert(error);
+      });
+  }
+
+  sendUpdate() {
+    let userId = this.props.match.params.id;
+    const baseUrl = API.baseUrl + API.updateFilms + userId;
+
+    const datapost = {
+      name: this.state.Fname,
+      genre: this.state.Fgenre,
+      rate: this.state.Frate,
+      my_rate: this.state.Fmy_rate,
+    };
+    axios
+      .post(baseUrl, datapost)
+      .then((response) => {
+        alert(response.data.message);
+        window.history.back();
+      })
+      .catch((error) => {
+        alert(error);
       });
   }
 
   render() {
-    // let userId = 0;
-    //let userId = this.props.match.params.employeeId;
     return (
       <div>
         <div className="form-row">
@@ -104,30 +117,6 @@ class EditComponent extends React.Component {
       </div>
     );
   }
-
-  sendUpdate() {
-    let userId = this.props.match.params.id;
-    const baseUrl = "http://localhost:3001/films/update/" + userId;
-
-    const datapost = {
-      name: this.state.Fname,
-      genre: this.state.Fgenre,
-      rate: this.state.Frate,
-      my_rate: this.state.Fmy_rate,
-    };
-    axios
-      .post(baseUrl, datapost)
-      .then((response) => {
-        if (response.data.success) {
-          alert(response.data.message);
-        } else {
-          alert("Error");
-        }
-      })
-      .catch((error) => {
-        alert("error 325");
-      });
-  }
 }
 
-export default EditComponent;
+export default Edit;

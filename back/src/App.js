@@ -17,15 +17,12 @@ app.use((req, res, next) => {
   res.header("Allow", "GET, POST, OPTIONS, PUT, DELETE");
   next();
 });
+
 //import route
 const filmRoute = require("./routes/FilmRoute");
 
 //route
 app.use("/films", filmRoute);
-
-app.use("/test", (req, res) => {
-  res.send("test route");
-});
 
 app.use("/", (req, res) => {
   res.send("hello world");

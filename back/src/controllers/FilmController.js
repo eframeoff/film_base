@@ -7,12 +7,17 @@ sequelize.sync();
 
 controllers.delete = async (req, res) => {
   const { id } = req.body;
-
-  const del = await Films.destroy({
+  const data = await Films.destroy({
     where: { id: id },
-  });
+  })
+    .then(function (data) {
+      return data;
+    })
+    .catch((error) => {
+      return error;
+    });
 
-  res / json({ success: true, deleted: del, message: "Deleted successful" });
+  res.json({ success: true, deleted: data, message: "Фильм удален" });
 };
 
 controllers.get = async (req, res) => {
@@ -21,7 +26,6 @@ controllers.get = async (req, res) => {
     where: { id: id },
   })
     .then(function (data) {
-      console.log(data);
       return data;
     })
     .catch((error) => {
@@ -33,14 +37,13 @@ controllers.get = async (req, res) => {
 
 controllers.list = async (req, res) => {
   const data = await Films.findAll()
-
     .then(function (data) {
-      console.log(data);
       return data;
     })
     .catch((error) => {
       return error;
     });
+
   res.json({
     success: true,
     data: data,
@@ -59,9 +62,9 @@ controllers.create = async (req, res) => {
       return data;
     })
     .catch((error) => {
-      console.log(error);
       return error;
     });
+
   res.status(200).json({
     success: true,
     message: "Данные сохранены",
@@ -70,11 +73,8 @@ controllers.create = async (req, res) => {
 };
 
 controllers.update = async (req, res) => {
-  console.log(req.body);
-
   const { id } = req.params;
   const { name, rate, my_rate, genre } = req.body;
-
   const data = await Films.update(
     {
       name: name,
@@ -86,7 +86,6 @@ controllers.update = async (req, res) => {
       where: { id: id },
     }
   )
-
     .then(function (data) {
       return data;
     })
@@ -94,41 +93,7 @@ controllers.update = async (req, res) => {
       return error;
     });
 
-  res.json({ success: true, data: data, message: "Updata successful" });
+  res.json({ success: true, data: data, message: "Данные обновлены" });
 };
-
-// controllers.testdata = async (req, res) => {
-//   const response = await sequelize
-//     .sync()
-//     .then(function () {
-//       // create role
-//       Role.create({
-//         role: "User",
-//       });
-//       // create employee
-
-//       Employee.create({
-//         name: "Vova",
-//         roleId: 1,
-//       });
-
-//       const data = Employee.findAll();
-//       return data;
-//     })
-//     .catch((error) => {
-//       return error;
-//     });
-
-//   res.json({ success: true, data: response });
-// };
-// controllers.test = (req, res) => {
-//   const data = {
-//     name: "Vova",
-//     age: 18,
-//   };
-
-//   console.log("execute");
-//   res.json(data);
-// };
 
 module.exports = controllers;

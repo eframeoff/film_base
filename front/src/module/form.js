@@ -1,10 +1,8 @@
 import React from "react";
-
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min";
 import axios from "axios";
+import { API } from "../utils/constants";
 
-class EditComponent extends React.Component {
+class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,6 +11,33 @@ class EditComponent extends React.Component {
       Frate: "",
       Fmy_rate: "",
     };
+  }
+
+  sendSave() {
+    if (this.state.Fname === "") {
+      alert("Введите название фильма!");
+    } else {
+      const baseUrl = API.baseUrl + API.createFilms;
+      const datapost = {
+        name: this.state.Fname,
+        genre: this.state.Fgenre,
+        rate: this.state.Frate,
+        my_rate: this.state.Fmy_rate,
+      };
+      axios
+        .post(baseUrl, datapost)
+        .then((response) => {
+          if (response.data.success === true) {
+            alert(response.data.message);
+            window.history.back();
+          } else {
+            alert(response.data.message);
+          }
+        })
+        .catch((error) => {
+          alert(error);
+        });
+    }
   }
 
   render() {
@@ -74,32 +99,6 @@ class EditComponent extends React.Component {
       </div>
     );
   }
-
-  sendSave() {
-    if (this.state.Fname === "") {
-      alert("Введите название фильма!");
-    } else {
-      const baseUrl = "http://localhost:3001/films/create";
-      const datapost = {
-        name: this.state.Fname,
-        genre: this.state.Fgenre,
-        rate: this.state.Frate,
-        my_rate: this.state.Fmy_rate,
-      };
-      axios
-        .post(baseUrl, datapost)
-        .then((response) => {
-          if (response.data.success === true) {
-            alert(response.data.message);
-          } else {
-            alert(response.data.message);
-          }
-        })
-        .catch((error) => {
-          alert("Error 34 " + error);
-        });
-    }
-  }
 }
 
-export default EditComponent;
+export default Form;
