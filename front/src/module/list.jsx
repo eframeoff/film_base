@@ -1,8 +1,6 @@
 import React from "react";
 import axios from "axios";
-
 import { Link } from "react-router-dom";
-
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
 import { API, CONTENT } from "../utils/constants";
@@ -20,9 +18,7 @@ class List extends React.Component {
     axios
       .get(url)
       .then((res) => this.setState({ listEmployee: res.data.data }))
-      .catch((error) => {
-        alert(error);
-      });
+      .catch((error) => console.log(error));
   }
 
   onDelete(id) {
@@ -36,8 +32,6 @@ class List extends React.Component {
     }).then((result) => {
       if (result.value) {
         this.sendDelete(id);
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire("Cancelled", "Your imaginary file is safe :)", "error");
       }
     });
   }
@@ -48,13 +42,12 @@ class List extends React.Component {
       .post(baseUrl, {
         id: userId,
       })
-      .then(() => {
-        Swal.fire("Ура", "Фильм удален", "success");
+      .then(({ data }) => {
+        console.log(data);
+        Swal.fire("Ура", data.message, "success");
         this.loadFilms();
       })
-      .catch((error) => {
-        alert(error);
-      });
+      .catch((error) => console.log(error));
   }
 
   componentDidMount() {
@@ -62,15 +55,14 @@ class List extends React.Component {
   }
 
   loadFillData() {
-    return this.state.listEmployee.map((data) => {
+    return this.state.listEmployee.map((data, i) => {
       return (
-        <tr>
+        <tr key={i}>
           <th>{data.id}</th>
           <td>{data.name}</td>
           <td>{data.genre}</td>
           <td>{data.rate}</td>
           <td>{data.my_rate}</td>
-
           <td>
             <Link className="btn btn-outline-info" to={API.edit + data.id}>
               {CONTENT.UPDATE}

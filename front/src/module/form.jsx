@@ -6,23 +6,23 @@ class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      Fname: "",
-      Fgenre: "",
-      Frate: "",
-      Fmy_rate: "",
+      filmName: "",
+      filmGenre: "",
+      filmRate: "",
+      filmMyRate: "",
     };
   }
 
   sendSave() {
-    if (this.state.Fname === "") {
+    if (this.state.filmName === "") {
       alert("Введите название фильма!");
     } else {
       const baseUrl = API.baseUrl + API.createFilms;
       const datapost = {
-        name: this.state.Fname,
-        genre: this.state.Fgenre,
-        rate: this.state.Frate,
-        my_rate: this.state.Fmy_rate,
+        name: this.state.filmName,
+        genre: this.state.filmGenre,
+        rate: this.state.filmRate,
+        my_rate: this.state.filmMyRate,
       };
       axios
         .post(baseUrl, datapost)
@@ -34,9 +34,7 @@ class Form extends React.Component {
             alert(response.data.message);
           }
         })
-        .catch((error) => {
-          alert(error);
-        });
+        .catch((error) => console.log(error));
     }
   }
 
@@ -50,8 +48,10 @@ class Form extends React.Component {
               type="text"
               className="form-control"
               placeholder="Название"
-              value={this.state.Fname}
-              onChange={(value) => this.setState({ Fname: value.target.value })}
+              value={this.state.filmName}
+              onChange={(value) =>
+                this.setState({ filmName: value.target.value })
+              }
             />
           </div>
           <div className="form-group col-md-6">
@@ -60,9 +60,9 @@ class Form extends React.Component {
               type="text"
               className="form-control"
               placeholder="Жанр"
-              value={this.state.Fgenre}
+              value={this.state.filmGenre}
               onChange={(value) =>
-                this.setState({ Fgenre: value.target.value })
+                this.setState({ filmGenre: value.target.value })
               }
             />
           </div>
@@ -72,8 +72,10 @@ class Form extends React.Component {
               type="text"
               className="form-control"
               placeholder="Оценка кинопоиска"
-              value={this.state.Frate}
-              onChange={(value) => this.setState({ Frate: value.target.value })}
+              value={this.state.filmRate}
+              onChange={(value) =>
+                this.setState({ filmRate: value.target.value })
+              }
             />
           </div>
           <div className="form-group col-md-6">
@@ -82,9 +84,9 @@ class Form extends React.Component {
               type="text"
               className="form-control"
               placeholder="Моя оценка"
-              value={this.state.Fmy_rate}
+              value={this.state.filmMyRate}
               onChange={(value) =>
-                this.setState({ Fmy_rate: value.target.value })
+                this.setState({ filmMyRate: value.target.value })
               }
             />
           </div>

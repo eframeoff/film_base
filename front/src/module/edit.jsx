@@ -6,45 +6,39 @@ class Edit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataEmployee: {},
-      Fname: "",
-      Fgenre: "",
-      Frate: "",
-      Fmy_rate: "",
+      filmName: "",
+      filmGenre: "",
+      filmRate: "",
+      filmMyRate: "",
     };
   }
 
   componentDidMount() {
-    console.log(this.props);
     let userId = this.props.match.params.id;
     const url = API.baseUrl + API.getByIdFilms + userId;
-
     axios
       .get(url)
       .then((res) => {
+        console.log(res);
         const data = res.data.data[0];
         this.setState({
-          dataEmployee: data,
-          Fname: data.name,
-          Fgenre: data.genre,
-          Frate: data.rate,
-          Fmy_rate: data.my_rate,
+          filmName: data.name,
+          filmGenre: data.genre,
+          filmRate: data.rate,
+          filmMyRate: data.my_rate,
         });
       })
-      .catch((error) => {
-        alert(error);
-      });
+      .catch((error) => console.log(error));
   }
 
   sendUpdate() {
     let userId = this.props.match.params.id;
     const baseUrl = API.baseUrl + API.updateFilms + userId;
-
     const datapost = {
-      name: this.state.Fname,
-      genre: this.state.Fgenre,
-      rate: this.state.Frate,
-      my_rate: this.state.Fmy_rate,
+      name: this.state.filmName,
+      genre: this.state.filmGenre,
+      rate: this.state.filmRate,
+      my_rate: this.state.filmMyRate,
     };
     axios
       .post(baseUrl, datapost)
@@ -52,9 +46,7 @@ class Edit extends React.Component {
         alert(response.data.message);
         window.history.back();
       })
-      .catch((error) => {
-        alert(error);
-      });
+      .catch((error) => console.log(error));
   }
 
   render() {
@@ -67,8 +59,10 @@ class Edit extends React.Component {
               type="text"
               className="form-control"
               placeholder="Название"
-              value={this.state.Fname}
-              onChange={(value) => this.setState({ Fname: value.target.value })}
+              value={this.state.filmName}
+              onChange={(value) =>
+                this.setState({ filmName: value.target.value })
+              }
             />
           </div>
           <div className="form-group col-md-6">
@@ -77,9 +71,9 @@ class Edit extends React.Component {
               type="text"
               className="form-control"
               placeholder="Жанр"
-              value={this.state.Fgenre}
+              value={this.state.filmGenre}
               onChange={(value) =>
-                this.setState({ Fgenre: value.target.value })
+                this.setState({ filmGenre: value.target.value })
               }
             />
           </div>
@@ -89,8 +83,10 @@ class Edit extends React.Component {
               type="text"
               className="form-control"
               placeholder="Рейтинг"
-              value={this.state.Frate}
-              onChange={(value) => this.setState({ Frate: value.target.value })}
+              value={this.state.filmRate}
+              onChange={(value) =>
+                this.setState({ filmRate: value.target.value })
+              }
             />
           </div>
           <div className="form-group col-md-6">
@@ -99,9 +95,9 @@ class Edit extends React.Component {
               type="text"
               className="form-control"
               placeholder="Моя оценка"
-              value={this.state.Fmy_rate}
+              value={this.state.filmMyRate}
               onChange={(value) =>
-                this.setState({ Fmy_rate: value.target.value })
+                this.setState({ filmMyRate: value.target.value })
               }
             />
           </div>
@@ -111,7 +107,7 @@ class Edit extends React.Component {
           class="btn btn-primary"
           onClick={() => this.sendUpdate()}
         >
-          Update
+          {CONTENT.UPDATE}
         </button>
       </div>
     );

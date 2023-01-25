@@ -1,12 +1,8 @@
 const express = require("express");
 const app = express();
 
-//settings PORT
 app.set("port", process.env.POST || 3001);
-
-//midlewares
 app.use(express.json());
-
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
@@ -18,10 +14,7 @@ app.use((req, res, next) => {
   next();
 });
 
-//import route
 const filmRoute = require("./routes/FilmRoute");
-
-//route
 app.use("/films", filmRoute);
 
 app.use("/", (req, res) => {

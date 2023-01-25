@@ -8,41 +8,27 @@ sequelize.sync();
 controllers.delete = async (req, res) => {
   const { id } = req.body;
   const data = await Films.destroy({
-    where: { id: id },
+    where: { id },
   })
-    .then(function (data) {
-      return data;
-    })
-    .catch((error) => {
-      return error;
-    });
-
+    .then((data) => data)
+    .catch((error) => error);
   res.json({ success: true, deleted: data, message: "Фильм удален" });
 };
 
 controllers.get = async (req, res) => {
   const { id } = req.params;
   const data = await Films.findAll({
-    where: { id: id },
+    where: { id },
   })
-    .then(function (data) {
-      return data;
-    })
-    .catch((error) => {
-      return error;
-    });
-
+    .then((data) => data)
+    .catch((error) => error);
   res.json({ success: true, data: data });
 };
 
 controllers.list = async (req, res) => {
   const data = await Films.findAll()
-    .then(function (data) {
-      return data;
-    })
-    .catch((error) => {
-      return error;
-    });
+    .then((data) => data)
+    .catch((error) => error);
 
   res.json({
     success: true,
@@ -53,19 +39,15 @@ controllers.list = async (req, res) => {
 controllers.create = async (req, res) => {
   const { name, rate, my_rate, genre } = req.body;
   const data = await Films.create({
-    name: name,
-    rate: rate,
-    my_rate: my_rate,
-    genre: genre,
+    name,
+    rate,
+    my_rate,
+    genre,
   })
-    .then(function (data) {
-      return data;
-    })
-    .catch((error) => {
-      return error;
-    });
+    .then((data) => data)
+    .catch((error) => error);
 
-  res.status(200).json({
+  res.json({
     success: true,
     message: "Данные сохранены",
     data: data,
@@ -77,22 +59,17 @@ controllers.update = async (req, res) => {
   const { name, rate, my_rate, genre } = req.body;
   const data = await Films.update(
     {
-      name: name,
-      rate: rate,
-      my_rate: my_rate,
-      genre: genre,
+      name,
+      rate,
+      my_rate,
+      genre,
     },
     {
-      where: { id: id },
+      where: { id },
     }
   )
-    .then(function (data) {
-      return data;
-    })
-    .catch((error) => {
-      return error;
-    });
-
+    .then((data) => data)
+    .catch((error) => error);
   res.json({ success: true, data: data, message: "Данные обновлены" });
 };
 

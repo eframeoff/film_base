@@ -26,7 +26,7 @@ function App() {
         </nav>
         <div className="container py-4">
           <div className="row">
-            <Route path="/" component={List} />
+            <Route path="/" exact component={List} />
             <Route path="/form" component={Form} />
             <Route path="/edit/:id" component={Edit} />
           </div>
