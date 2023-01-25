@@ -1,7 +1,6 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 import axios from "axios";
-import { API } from "../utils/constants";
+import { API, CONTENT } from "../utils";
 
 class Edit extends React.Component {
   constructor(props) {
@@ -63,7 +62,7 @@ class Edit extends React.Component {
       <div>
         <div className="form-row">
           <div className="form-group col-md-6">
-            <label htmlFor="inputPassword4">Назание фильма</label>
+            <label htmlFor="inputPassword4">{CONTENT.FILM_NAME}</label>
             <input
               type="text"
               className="form-control"
@@ -73,7 +72,7 @@ class Edit extends React.Component {
             />
           </div>
           <div className="form-group col-md-6">
-            <label htmlFor="inputState">Жанр</label>
+            <label htmlFor="inputState">{CONTENT.FILM_GENRE}</label>
             <input
               type="text"
               className="form-control"
@@ -85,7 +84,7 @@ class Edit extends React.Component {
             />
           </div>
           <div className="form-group col-md-6">
-            <label htmlFor="inputState">Рейтинг</label>
+            <label htmlFor="inputState">{CONTENT.FILM_RAITING}</label>
             <input
               type="text"
               className="form-control"
@@ -95,7 +94,7 @@ class Edit extends React.Component {
             />
           </div>
           <div className="form-group col-md-6">
-            <label htmlFor="inputState">Моя оценка</label>
+            <label htmlFor="inputState">{CONTENT.MY_FILM_RAITING}</label>
             <input
               type="text"
               className="form-control"

@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { API } from "../utils/constants";
+import { API, CONTENT } from "../utils/constants";
 
 class Form extends React.Component {
   constructor(props) {
@@ -45,7 +45,7 @@ class Form extends React.Component {
       <div>
         <div className="form-row">
           <div className="form-group col-md-6">
-            <label htmlFor="inputPassword4">Название фильма</label>
+            <label htmlFor="inputPassword4">{CONTENT.FILM_NAME}</label>
             <input
               type="text"
               className="form-control"
@@ -55,7 +55,7 @@ class Form extends React.Component {
             />
           </div>
           <div className="form-group col-md-6">
-            <label htmlFor="inputState">Жанр</label>
+            <label htmlFor="inputState">{CONTENT.FILM_GENRE}</label>
             <input
               type="text"
               className="form-control"
@@ -67,7 +67,7 @@ class Form extends React.Component {
             />
           </div>
           <div className="form-group col-md-6">
-            <label htmlFor="inputState">Оценка кинопоиска</label>
+            <label htmlFor="inputState">{CONTENT.FILM_KINOPOISK_RAITING}</label>
             <input
               type="text"
               className="form-control"
@@ -77,7 +77,7 @@ class Form extends React.Component {
             />
           </div>
           <div className="form-group col-md-6">
-            <label htmlFor="inputState">Моя оценка</label>
+            <label htmlFor="inputState">{CONTENT.MY_FILM_RAITING}</label>
             <input
               type="text"
               className="form-control"
@@ -94,7 +94,7 @@ class Form extends React.Component {
           className="btn btn-primary"
           onClick={() => this.sendSave()}
         >
-          Сохранить
+          {CONTENT.SAVE}
         </button>
       </div>
     );

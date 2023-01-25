@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
-import { API } from "../utils/constants";
+import { API, CONTENT } from "../utils/constants";
 
 class List extends React.Component {
   constructor(props) {
@@ -25,7 +25,6 @@ class List extends React.Component {
       });
   }
 
-  // Для теста - библиотека sweetalert2
   onDelete(id) {
     Swal.fire({
       title: "Удалить фильм?",
@@ -74,7 +73,7 @@ class List extends React.Component {
 
           <td>
             <Link className="btn btn-outline-info" to={API.edit + data.id}>
-              Изменить
+              {CONTENT.UPDATE}
             </Link>
           </td>
           <td>
@@ -82,8 +81,7 @@ class List extends React.Component {
               className="btn btn-outline-danger"
               onClick={() => this.onDelete(data.id)}
             >
-              {" "}
-              Удалить{" "}
+              {CONTENT.DELETE}
             </button>
           </td>
         </tr>
@@ -97,10 +95,10 @@ class List extends React.Component {
         <thead className="thead-dark">
           <tr>
             <th scope="col">#</th>
-            <th scope="col">Название фильма</th>
-            <th scope="col">Жанр</th>
-            <th scope="col">Оценка кинопоиска</th>
-            <th scope="col">Моя оценка</th>
+            <th scope="col">{CONTENT.FILM_NAME}</th>
+            <th scope="col">{CONTENT.FILM_GENRE}</th>
+            <th scope="col">{CONTENT.FILM_KINOPOISK_RAITING}</th>
+            <th scope="col">{CONTENT.MY_FILM_RAITING}</th>
             <th scope="col"></th>
             <th scope="col"></th>
           </tr>
