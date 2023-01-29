@@ -5,7 +5,7 @@
 ### Технологии
 
 - Клиент: Javascript, React, Bootstrap (localhost:3000)
-- Сервер: Node.js, Express, MySQL (localhost:3001) 
+- Сервер: Node.js (v12) , Express, MySQL (localhost:3001) 
 
 ### Как запускать? Установка пакетов для клиента и сервера в директориях front и back
 
